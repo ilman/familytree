@@ -1,0 +1,72 @@
+body{ font:12px/18px Arial, Helvetica, sans-serif; background:#f5f5f5; }
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+.tree{ padding:20px; width:10000px; overflow:hidden; }
+.tree ul{ padding-top:20p; position:relative; }
+.tree li{ float:left; text-align:center; list-style:none; position:relative; padding:20px 5px 0 5px; }
+
+.tree li::before, .tree li::after{ content: ''; position: absolute; top: 0; right: 50%; border-top:#ccc solid 1px; width:50%; height:20px; }
+.tree li::after{ right:auto; left:50%; border-left:1px solid #ccc; }
+
+/*Remove left connector from first child and 
+right connector from last child*/
+.tree li:first-child::before, .tree li:last-child::after{ border: 0 none; }
+
+/*Adding back the vertical connector to the last nodes*/
+.tree li:last-child::before{ border-right:#ccc solid 1px; border-radius:0 5px 0 0; }
+.tree li:first-child::after{ border-radius:5px 0 0 0; }
+
+/*Time to add downward connectors from parents*/
+.tree ul ul::before{ content:''; position:absolute; top:0; left:50%; border-left:#ccc solid 1px; width:0; height:20px; }
+
+
+/*Remove space from the top of single children*/
+.tree li:only-child{ padding-top: 0;}
+
+/*We need to remove left-right connectors from elements without 
+any siblings*/
+.tree li:only-child::after, .tree li:only-child::before{ display:none; }
+
+/* hide empty children */
+.tree ul:empty{ display:none; }
+
+
+.parent{ position:relative; }
+.children{ padding-top:20px; }
+
+/* create husband-wife connectors */
+.person::before, .person::after{ content:''; position:absolute; }
+.person::before{ border-left:#ccc solid 1px; height:101%; top:0; left:-7px; }
+.person::after{ border-top:#ccc solid 1px; top:50%; width:15px; left:-15px; }
+.person:first-child::before, .person:first-child::after{ border:0 none; }
+.person:only-child{ margin:0; }
+
+.person{ position:relative; background:#fff; border:#ddd solid 1px; padding:20px 10px; width:200px; display:inline-block; margin:0 5px; text-align:center; }
+.person .image img{ max-width:100%; width:100px; border-radius:50%; }
+.person .image, .person .name{ margin-bottom:10px; }
+.person .name{ font-size:16px; line-height:1.45; }
+.person .name *{ display:block; }
+.person .name small{ color:#999; }
+
+
+/*----start sortable----*/
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+li.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+li.placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
+}
+/*----end sortable----*/
